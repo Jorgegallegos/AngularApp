@@ -1,0 +1,33 @@
+<p>
+  welcome works! {{model.name}} {{model.lastName}}
+</p>
+
+<input type="text" [(ngModel)]="model.name">
+<input type="text" [(ngModel)]="model.lastName">
+<input type="checkbox" [(ngModel)]="model.gender">
+
+<button (click)="clicked()">
+  <span *ngIf="!isLoading">Click me!</span>
+  <i></i>
+</button>
+
+<img src="{{model.photo}}" [ngStyle]="{'width':'80px','height':'80px'}">
+
+<div class="ui message" [ngClass]="{'femenino':model.gender,'masculino':!model.gender}"> 
+  <div class="header"> 
+    Selected Genre
+  </div>
+  <div *ngIf="model.gender">Femenino</div>
+  <div *ngIf="!model.gender">Masculino</div>
+</div>
+
+<button class="ui button primary" (click)="addItem()">Add</button>
+<button class="ui button secondary" (click)="removeItem()">Remove</button>
+
+<ul *ngFor="let item of array;let i=index">
+  <li (click)="selectItem(item)">{{item}}||{{i}}</li>
+</ul>
+
+<pre>
+{{model | json}}
+</pre>

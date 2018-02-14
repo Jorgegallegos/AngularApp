@@ -1,0 +1,72 @@
+<div class="container">
+  <h1 class="ui header teal">Add a bug</h1>
+  <form novalidate (ngSubmit)="save()" [formGroup]="addBugForm" class="ui form">
+    <!--title-->
+    <div class="field" [ngClass]="{'error':addBugForm.get('title').touched && addBugForm.get('title').invalid}">
+      <label>Title ({{ 120 - addBugForm.get('title').value.length }})</label>
+      <input type="text" placeholder="title" formControlName="title"/>
+    </div>
+    <div class="ui pointing red basic label" *ngIf="addBugForm.get('title').touched
+     && addBugForm.get('title').errors && addBugForm.get('title').errors.maxlength">
+      max length reached
+    </div>
+    <!--body-->
+    <div class="field" [ngClass]="{'error':addBugForm.get('body').touched && addBugForm.get('body').invalid}">
+      <label>Body ({{ 500 - addBugForm.get('body').value.length }})</label>
+      <textarea placeholder="body" formControlName="body">
+      </textarea>
+    </div>
+    <div class="ui pointing red basic label" *ngIf="addBugForm.get('body').touched
+    && addBugForm.get('body').errors && addBugForm.get('body').errors.maxlength">
+     max length reached
+   </div>
+    <!--stepsToReproduce-->
+    <div class="field" [ngClass]="{'error':addBugForm.get('stepsToReproduce').touched && addBugForm.get('stepsToReproduce').invalid}">
+        <input type="checkbox"/>
+        <label>Steps to reproduce the issue  ({{ 250 - addBugForm.get('stepsToReproduce').value.length }})</label>
+        <textarea rows="1" placeholder="steps to reproduce" formControlName="stepsToReproduce"></textarea>
+    </div>
+    <div class="ui pointing red basic label" *ngIf="addBugForm.get('stepsToReproduce').touched
+     && addBugForm.get('stepsToReproduce').errors && addBugForm.get('stepsToReproduce').errors.maxlength">
+      max length reached
+    </div>
+    <!--severity-->
+    <div class="field">
+    <label>Severity</label>
+    <select class="ui dropdown" formControlName="severity">
+        <option value="1"><i class="circle large icon normal"></i>Normal</option>
+        <option value="2"><i class="circle large icon normal"></i>Critical</option>
+        <option value="3"><i class="circle large icon normal"></i>Fatal</option>
+      </select>
+    </div>
+    <!--isFixed-->
+    <div class="field">
+        <div class="ui toggle checkbox">
+          <input type="checkbox" formControlName="isFixed"/>
+          <label>Is fixed</label>
+        </div>
+    </div>
+    <div class="ui right aligned segment" >
+        <button type="submit" class="ui button green pull-right" [disabled]="addBugForm.invalid">Save</button>
+    </div>
+    
+    <!--
+    <pre>
+        Form value {{ addBugForm.value   | json }}
+        value {{ addBugForm.get('title').value   | json }}
+        touched {{ addBugForm.get('title').touched   | json }}
+        dirty {{ addBugForm.get('title').dirty   | json }}
+        valid {{ addBugForm.get('title').valid   | json }}
+        invalid {{ addBugForm.get('title').invalid   | json }}
+    </pre>-->
+  </form>
+
+  <a class="ui button" [routerLink]="['/bugs']">
+    <i class="angle double left icon"></i> Back
+  </a>
+
+</div>
+
+
+
+

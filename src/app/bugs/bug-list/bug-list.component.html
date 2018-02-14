@@ -1,0 +1,60 @@
+<div class="ui main container">
+    <div class="row">   
+         <h1 class="ui header">Bugs</h1>
+    </div>
+  <div class="ui right aligned segment">
+      <a class="ui button green pull-right" [routerLink]="['/addbug/']">
+          <i class="add circle icon"></i>
+          Add a bug
+      </a>
+  </div>
+  <table class="ui celled striped table">
+  <thead style="text-align:center">
+      <tr>
+        <th>#</th>
+        <th>Title</th>
+        <th>Created</th>
+        <th>Severity</th>
+        <th>Fixed</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor="let bug of bugs;let i = index">
+        <td>
+          <a [routerLink]="['/bugs/',bug.Id]">
+          {{bug.Id}}
+        </a>
+        </td>
+        <td>{{bug.Title | uppercase}}</td>
+        <td>{{bug.CreatedAt  | fromnow}}</td>
+        <td><app-severity [severityRange]='bug.Severity'></app-severity></td>
+        <td>
+          <i [ngClass]="{'green checkmark':bug.IsFixed,'red remove':!bug.IsFixed}" class="large icon"></i>
+        </td>
+        <td>
+          <button class="ui button green" (click)="editBug(bug);"  ><i class="write icon"></i>edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+<form novalidate (ngSubmit)="updateBug(bugEdit);">
+    <div class="ui input">
+      <input type="text" class="ui input" id="Id" name="Id" [(ngModel)]="bugEdit.Id">
+    </div>
+    <div class="ui input">
+    <input type="text" class="" id="Title" name="Title" [(ngModel)]="bugEdit.Title">
+    </div>
+    <div class="ui input">
+      <input type="text" class="" id="CreatedAt" name="CreatedAt" [(ngModel)]="bugEdit.CreatedAt">
+    </div>
+    <div class="ui input">
+      <input type="text" class="" id="Severity" name="Severity" [(ngModel)]="bugEdit.Severity">
+    </div>
+    <div class="ui input">
+      <input type="text" class="" id="IsFixed" name="IsFixed" [(ngModel)]="bugEdit.IsFixed">
+    </div>
+  <button class="ui button green">update</button>
+</form>
+</div>

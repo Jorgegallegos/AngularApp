@@ -1,0 +1,42 @@
+<div class="ui main container">
+    <div class="row">
+      <h1 class="ui header teal">Bug detail</h1>
+    </div>
+    <div class="ui raised segment" *ngIf="bug">
+        <h3 class="ui header">#{{bug.Id}} - {{bug.Title}}</h3>
+    <app-severity [severityRange]="bug.severity"></app-severity>
+    <p>
+      {{bug.Body}}
+    </p>
+  </div>
+    <div class="ui raised segment" *ngIf="bug">
+        <h3 class="ui header">Steps to reproduce the issue</h3>
+          <p class="text">
+            {{bug.StepsToReproduce}}
+          </p>
+       </div>
+  
+       <div class="ui raised segment" *ngIf="bug">
+          <h3 class="ui header">Follow up</h3>
+          <i [ngClass]="{'green checkmark':bug.isFixed, 'red remove':!bug.isFixed}" class="large icon"></i>
+          <p>
+              Created {{bug.CreatedAt | fromnow}}, Modified {{bug.modifiedAt | fromnow}}
+            </p>
+         </div>
+  
+         <a class="ui button" [routerLink]="['/bugs']">
+          <i class="angle double left icon"></i> Back
+        </a>
+  </div>
+
+<!--if,else,combined with ngTemplates-->
+<div *ngIf="bug.createdBy; then content else anotherContent"></div>
+<ng-template #content>
+  content here
+</ng-template>
+<ng-template #anotherContent>
+    no hay createdby info
+</ng-template>
+
+<hr>
+{{bug | json}}
